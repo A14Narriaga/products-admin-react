@@ -1,0 +1,33 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"useDefineForClassFields": true,
+		"lib": ["esnext", "DOM", "DOM.Iterable"],
+    "target": "ES6",
+		"module": "esnext",
+		"skipLibCheck": true,
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"paths": {
+			"@src/*": ["src/*"],
+			"@tests/*": ["tests/*"]
+		},
+		"types": ["vitest/globals"]
+	},
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"tests/config/calculate-global-test-coverage.ts"
+	],
+	"exclude": ["node_modules"],
+	"references": [{ "path": "./tsconfig.node.json" }]
+}

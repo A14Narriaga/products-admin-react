@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply bg-gradient-to-r from-slate-700 to-gray-800 overflow-hidden;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #1F2937;
+}
+
+::-webkit-scrollbar {
+	width: 0.4rem;
+	height: 0.4rem;
+}
+
+::-webkit-scrollbar-thumb {
+	background-clip: padding-box;
+	border-radius: 10rem;
+	background-color: #838383;
+}
