@@ -10,7 +10,7 @@ const port = Number(process.env.PORT) || 4000
 export default defineConfig({
 	base: "./",
 	plugins: [react()],
-  resolve: {
+	resolve: {
 		alias: {
 			"@src": path.resolve(__dirname, "./src"),
 			"@tests": path.resolve(__dirname, "./tests")

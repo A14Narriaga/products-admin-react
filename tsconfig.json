@@ -3,7 +3,7 @@
 		"baseUrl": ".",
 		"useDefineForClassFields": true,
 		"lib": ["esnext", "DOM", "DOM.Iterable"],
-    "target": "ES6",
+		"target": "ES6",
 		"module": "esnext",
 		"skipLibCheck": true,
 		"moduleResolution": "bundler",
@@ -28,6 +28,5 @@
 		"**/*.tsx",
 		"tests/config/calculate-global-test-coverage.ts"
 	],
-	"exclude": ["node_modules"],
-	"references": [{ "path": "./tsconfig.node.json" }]
+	"exclude": ["node_modules"]
 }

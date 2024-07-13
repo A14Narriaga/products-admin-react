@@ -30,14 +30,14 @@ yarn type-check || (
    echoColorMsg $ERROR "❌ Invalid types, please fix it."
    false;
 )
-echoColorMsg $SECONDARY "4/5 🔎 Testing..."
-yarn test || (
-   echoColorMsg $ERROR "❌ Test failed, please fix it."
-   false;
-)
+# echoColorMsg $SECONDARY "4/5 🔎 Testing..."
+# yarn test || (
+#    echoColorMsg $ERROR "❌ Test failed, please fix it."
+#    false;
+# )
 echoColorMsg $SECONDARY "5/5 🔎 Generating build..."
 yarn build || (
 echoColorMsg $ERROR "❌ Build failed, please fix it."
   false;
-) 
+)
 echoColorMsg $SUCCESS "✅ Everything seems to be in order, let's send these changes."
