@@ -3,10 +3,7 @@ import { EAuthStatus, IUser } from "@src/models"
 import { AuthState } from "./auth.context"
 
 export type AuthAction =
-	| {
-			type: EAuthStatus.AUTHENTICATED
-			payload: { user: IUser }
-	  }
+	| { type: EAuthStatus.AUTHENTICATED; payload: { user: IUser } }
 	| { type: EAuthStatus.UNAUTHENTICATED; payload?: undefined }
 
 export const authReducer = (

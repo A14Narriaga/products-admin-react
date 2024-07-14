@@ -19,7 +19,7 @@ export const SubmenuComponent = () => {
 	const { authStatus } = authState
 	return (
 		<nav className="bg-gray-50 dark:bg-gray-700">
-			<div className="max-w-screen-xl px-4 py-3 mx-auto">
+			<div className="max-w-screen-lg px-4 py-3 mx-auto">
 				<div className="flex items-center">
 					<div className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
 						{navegation

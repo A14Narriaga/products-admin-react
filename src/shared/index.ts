@@ -1,3 +1,5 @@
-export * from "./logo"
+export * from "./confirmation"
+export * from "./logo/logo"
+export * from "./modal"
 export * from "./navbar"
 export * from "./pagination"

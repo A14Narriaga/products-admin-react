@@ -1,6 +1,6 @@
 import { ReactNode, useReducer } from "react"
 
-import { EAuthStatus, IUser } from "@src/models"
+import { EAuthStatus, EStorage, IUser } from "@src/models"
 import { Storage } from "@src/utilities"
 
 import { AuthContext, AuthState } from "./auth.context"
@@ -16,7 +16,7 @@ const initialState: AuthState = {
 }
 
 const init = (): AuthState => {
-	const user = Storage.getLocal("user") as IUser
+	const user = Storage.getLocal(EStorage.USER) as IUser
 	if (!user) return initialState
 	return {
 		authStatus: EAuthStatus.AUTHENTICATED,
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 			type: EAuthStatus.AUTHENTICATED,
 			payload: { user }
 		}
-		Storage.setLocal("user", user)
+		Storage.setLocal(EStorage.USER, user)
 		dispatch(action)
 	}
 
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 			type: EAuthStatus.UNAUTHENTICATED,
 			payload: undefined
 		}
-		Storage.removeLocal("user")
+		Storage.removeLocal(EStorage.USER)
 		dispatch(action)
 	}
 
