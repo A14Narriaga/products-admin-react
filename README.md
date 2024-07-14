@@ -1,10 +1,8 @@
 <p align="center">
-  <img src="./public/react.png" alt="React" height="200" />
+  <img src="./public/react.png" alt="React" height="150" />
 </p>
 
-<h1 align="center">✨ React Template ✨</h1>
-
-<p align="center">Template based on React and GraphQL</p>
+<h1 align="center">✨ Products Admin ✨</h1>
 
 <p align="center">
   <a href="https://nodejs.org/docs/latest-v20.x/api/index.html"><img src="https://img.shields.io/badge/node-20.12-green.svg" alt="node"/></a>
@@ -18,13 +16,25 @@
   <a href="https://typicode.github.io/husky/"><img src="https://img.shields.io/badge/🐶 Husky-1B1B1F.svg" alt="husky"/></a>
 </p>
 
+## 🥷 Accounts
+
+```bash
+email: employee@gmail.com
+password: Employee12345
+```
+
+```bash
+email: storer@gmail.com
+password: Storer12345
+```
+
 ## ⚠️ Envars
 
-| env         | example     | description                  |
-| ----------- | ----------- | ---------------------------- |
-| NODE_ENV    | development | Current environment          |
-| APP_VERSION | 1.0.0       | App version number           |
-| PORT        | 4000        | Development port for the app |
+| env               | example                     | description                  |
+| ----------------- | --------------------------- | ---------------------------- |
+| PORT              | 4000                        | Development port for the app |
+| VITE_APP_VERSION  | 1.0.0                       | App version number           |
+| VITE_API_BASE_URL | <http://localhost:8000/api> | Api base url                 |
 
 ## 🧑‍💻 Development
 
@@ -51,94 +61,4 @@ Note: Remeber execute all the commands for the repo directly form docker termina
 
 ```bash
 docker compose up dev -d
-```
-
-If you want to enter to the integrated terminal
-
-```bash
-docker exec -it dev sh
-```
-
-If you need to stop the development service, execute:
-
-```bash
-docker compose down
-```
-
-## 🧪 Testing
-
-To run the all the test with coverage run:
-
-```bash
-yarn:test
-```
-
-Or with watch mode enabled:
-
-```bash
-yarn test:dev
-```
-
-If you are interested only in the unit tests, you can run:
-
-```bash
-yarn test:unit
-```
-
-or with watch mode enabled:
-
-```bash
-yarn test:dev:unit
-```
-
-Or if you want end-to-end tests, you can execute:
-
-```bash
-yarn test:e2e
-```
-
-or with watch mode enabled:
-
-```bash
-yarn test:dev:e2e
-```
-
-## 🚀 Production
-
-```bash
-docker compose up prod -d
-```
-
-## ⚙️ Building
-
-```bash
-yarn build
-```
-
-## 💅 Formatter
-
-To run Prettier, you can execute:
-
-```bash
-yarn format
-```
-
-And to try to fix format issues automatically, you can run:
-
-```bash
-yarn format:fix
-```
-
-## 💅 Linting
-
-To run lint, you can execute:
-
-```bash
-yarn lint
-```
-
-And to try to fix lint issues automatically, you can run:
-
-```bash
-yarn lint:fix
 ```

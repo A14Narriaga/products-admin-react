@@ -5,6 +5,7 @@ import { Storage } from "@src/utilities"
 
 import { AuthContext, AuthState } from "./auth.context"
 import { AuthAction, authReducer } from "./auth.reducer"
+import { AuthService } from "./auth.service"
 
 interface IAuthProvider {
 	children: ReactNode
@@ -27,17 +28,8 @@ const init = (): AuthState => {
 export const AuthProvider = ({ children }: IAuthProvider) => {
 	const [authState, dispatch] = useReducer(authReducer, {}, init)
 
-	const login = (email: string, password: string) => {
-		// eslint-disable-next-line no-console
-		console.log(email, password)
-		const user: IUser = {
-			_id: "123456",
-			email,
-			name: "John Doe",
-			lastName: "Doe",
-			isActive: true,
-			roles: ["admin"]
-		}
+	const login = async (email: string, password: string) => {
+		const user = (await AuthService.login(email, password)) as IUser
 		const action: AuthAction = {
 			type: EAuthStatus.AUTHENTICATED,
 			payload: { user }

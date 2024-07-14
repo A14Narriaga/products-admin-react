@@ -1,6 +1,7 @@
 {
 	"name": "template-react",
 	"private": true,
+	"homepage": "https://a14narriaga.github.io/products-admin-react",
 	"version": "1.0.0",
 	"scripts": {
 		"start": "vite preview",

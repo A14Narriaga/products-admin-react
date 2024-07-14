@@ -11,38 +11,47 @@ import {
 import { PrivateRoute } from "./private.route"
 import { PublicRoute } from "./public.route"
 
-export const appRouter = createBrowserRouter([
+const isProduction = import.meta.env.MODE === "production"
+// eslint-disable-next-line no-console
+console.log("APP_MODE =>", import.meta.env.MODE)
+
+export const appRouter = createBrowserRouter(
+	[
+		{
+			path: "/",
+			element: <Home />,
+			children: [
+				{
+					path: "/",
+					element: <DashboardPage />
+				},
+				{
+					path: "products",
+					element: <PrivateRoute element={<ProductsPage />} />
+				}
+			]
+		},
+		{
+			path: "login",
+			element: <PublicRoute element={<Auth />} />,
+			children: [
+				{
+					path: "/login",
+					element: <LoginPage />
+				}
+			]
+		},
+		{
+			path: "*",
+			element: (
+				<Navigate
+					to="/"
+					replace
+				/>
+			)
+		}
+	],
 	{
-		path: "/",
-		element: <Home />,
-		children: [
-			{
-				path: "/",
-				element: <DashboardPage />
-			},
-			{
-				path: "products",
-				element: <PrivateRoute element={<ProductsPage />} />
-			}
-		]
-	},
-	{
-		path: "login",
-		element: <PublicRoute element={<Auth />} />,
-		children: [
-			{
-				path: "/login",
-				element: <LoginPage />
-			}
-		]
-	},
-	{
-		path: "*",
-		element: (
-			<Navigate
-				to="/"
-				replace
-			/>
-		)
+		basename: isProduction ? "/products-admin-react" : ""
 	}
-])
+)

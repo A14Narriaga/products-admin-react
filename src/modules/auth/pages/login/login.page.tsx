@@ -12,8 +12,8 @@ export const LoginPage = () => {
 	const { authActions } = useAuthContext()
 
 	const initialValues = {
-		email: "",
-		password: ""
+		email: "a14n.arriaga@gmail.com",
+		password: "A14Narriaga"
 	}
 
 	const validationSchema = Yup.object({
