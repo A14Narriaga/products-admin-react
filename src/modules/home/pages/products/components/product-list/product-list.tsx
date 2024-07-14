@@ -1,46 +1,64 @@
-import { ProductProps } from "@src/models"
+import { useState } from "react"
+import { v4 as uuidv4 } from "uuid"
 
-export const ProductList = () => {
+import { IProduct, ProductProps } from "@src/models"
+import { PaginationComponent } from "@src/shared"
+
+import { ProductItem } from "../product-item"
+
+interface IProductProps {
+	products: IProduct[]
+}
+
+const ITEMS_PER_PAGE = 10
+
+export const ProductList = ({ products }: IProductProps) => {
+	const [currentPage, setCurrentPage] = useState(1)
+
+	const setPage = (page: number) => {
+		setCurrentPage(page)
+	}
+
 	return (
 		<>
-			<div className="relative overflow-x-auto shadow-md rounded-lg">
-				<table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-					<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-						<tr>
-							{ProductProps.map((prop: string) => (
-								<th
-									scope="col"
-									className="px-6 py-3">
-									{prop}
-								</th>
-							))}
+			<table className="w-full text-sm text-left rtl:text-right overflow-hidden shadow-md rounded-lg text-gray-500 dark:text-gray-400">
+				<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+						{ProductProps.map((prop: string) => (
 							<th
+								key={uuidv4()}
 								scope="col"
 								className="px-6 py-3">
-								<span className="sr-only">Edit</span>
+								{prop}
 							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-							<th
-								scope="row"
-								className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-								Apple MacBook Pro 17"
-							</th>
-							<td className="px-6 py-4">$2999</td>
-							<td className="px-6 py-4">10</td>
-							<td className="px-6 py-4 text-right">
-								<a
-									href="#"
-									className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-									Edit
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+						))}
+						<th
+							scope="col"
+							className="px-6 py-3">
+							<span className="sr-only">Edit</span>
+						</th>
+						<th
+							scope="col"
+							className="px-6 py-3">
+							<span className="sr-only">Delete</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{products.map((product: IProduct) => (
+						<ProductItem
+							key={product._id}
+							product={product}
+						/>
+					))}
+				</tbody>
+			</table>
+			<PaginationComponent
+				numOfItems={products.length}
+				currentPage={currentPage}
+				numOfItemsPerPage={ITEMS_PER_PAGE}
+				onCurrentPage={setPage}
+			/>
 		</>
 	)
 }

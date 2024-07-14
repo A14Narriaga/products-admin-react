@@ -1,6 +1,15 @@
 import { createBrowserRouter, Navigate } from "react-router-dom"
 
-import { Auth, DashboardPage, Home, LoginPage, ProductsPage } from "./modules"
+import {
+	Auth,
+	DashboardPage,
+	Home,
+	LoginPage,
+	ProductsPage
+} from "@src/modules"
+
+import { PrivateRoute } from "./private.route"
+import { PublicRoute } from "./public.route"
 
 export const appRouter = createBrowserRouter([
 	{
@@ -13,13 +22,13 @@ export const appRouter = createBrowserRouter([
 			},
 			{
 				path: "products",
-				element: <ProductsPage />
+				element: <PrivateRoute element={<ProductsPage />} />
 			}
 		]
 	},
 	{
 		path: "login",
-		element: <Auth />,
+		element: <PublicRoute element={<Auth />} />,
 		children: [
 			{
 				path: "/login",
@@ -29,6 +38,11 @@ export const appRouter = createBrowserRouter([
 	},
 	{
 		path: "*",
-		element: <Navigate to="/" />
+		element: (
+			<Navigate
+				to="/"
+				replace
+			/>
+		)
 	}
 ])

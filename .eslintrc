@@ -22,7 +22,7 @@
 			"warn",
 			{ "allowConstantExport": true }
 		],
-		"id-length": ["error", { "min": 2 }],
+		"id-length": ["error", { "min": 2, "exceptions": ["_"] }],
 		"comma-dangle": ["error", "never"],
 		"simple-import-sort/imports": "error",
 		"simple-import-sort/exports": "error",
@@ -33,7 +33,7 @@
 		"node/no-missing-import": "off",
 		"node/no-unsupported-features/es-syntax": [
 			"error",
-			{ "ignores": ["modules"] }
+			{ "version": ">=20", "ignores": ["modules"] }
 		],
 		"node/no-unpublished-import": "off",
 		"no-process-exit": "off"
