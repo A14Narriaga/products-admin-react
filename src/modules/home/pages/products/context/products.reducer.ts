@@ -1,11 +1,14 @@
-import { EProductStatus, IProduct } from "@src/models"
+import { EProductStatus, INewProduct, IProduct } from "@src/models"
 
 import { IProductsState } from "./products.context"
 
 export type TProductsAction =
-	| { type: EProductStatus.ADD; payload: { product: IProduct } }
+	| { type: EProductStatus.ADD; payload: { product: INewProduct } }
 	| { type: EProductStatus.REMOVE; payload: { _id: string } }
-	| { type: EProductStatus.EDIT; payload: { _id: string; product: IProduct } }
+	| {
+			type: EProductStatus.EDIT
+			payload: { _id: string; product: INewProduct }
+	  }
 	| {
 			type: EProductStatus.SET
 			payload: { products: IProduct[]; total: number }

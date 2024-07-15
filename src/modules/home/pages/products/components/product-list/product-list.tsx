@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 
-import { IProduct, ProductProps } from "@src/models"
+import { INewProduct, IProduct, ProductProps } from "@src/models"
 import { useAuthContext } from "@src/modules/auth"
 import { ConfirmationComponent, PaginationComponent } from "@src/shared"
 import { ITEMS_PER_PAGE } from "@src/utilities"
@@ -43,18 +43,20 @@ export const ProductList = () => {
 		if (!accept || !currenteProduct) return
 		const { _id } = currenteProduct
 		await remove(_id)
+		await setPage(currentPage)
 	}
 
-	const handleEditProd = async (product: IProduct) => {
+	const handleEditProd = async (product: INewProduct) => {
 		setOpenEditModal(false)
 		if (!currenteProduct) return
 		const { _id } = currenteProduct
 		await edit(_id, product)
 	}
 
-	const handleAddProd = async (product: IProduct) => {
+	const handleAddProd = async (product: INewProduct) => {
 		setOpenAddModal(false)
 		await add(product)
+		await setPage(1)
 	}
 
 	return (

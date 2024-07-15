@@ -1,14 +1,13 @@
 import { ErrorMessage, Field, Form, Formik } from "formik"
-import { v4 as uuidv4 } from "uuid"
 import * as Yup from "yup"
 
-import { IProduct } from "@src/models"
+import { INewProduct, IProduct } from "@src/models"
 import { useAuthContext } from "@src/modules/auth"
 
 interface ProductFormComponentProps {
 	product: undefined | IProduct
 	onClose: () => void
-	onProduct: (product: IProduct) => void
+	onProduct: (product: INewProduct) => void
 }
 
 export const ProductFormComponent = ({
@@ -19,7 +18,7 @@ export const ProductFormComponent = ({
 	const { authState } = useAuthContext()
 	const { user } = authState
 	const isStorer = user?.roles.includes("storer")
-	const isEditPage = product === undefined
+	const isEditPage = product !== undefined
 
 	const initialValues = {
 		name: product?.name || "",
@@ -38,11 +37,8 @@ export const ProductFormComponent = ({
 	})
 
 	const handleSubmit = (values: typeof initialValues) => {
-		const newProd: IProduct = {
-			_id: product?._id || uuidv4(),
-			...values
-		}
-		onProduct(newProd)
+		const newProduct = { ...values } as INewProduct
+		onProduct(newProduct)
 		onClose()
 	}
 
@@ -53,7 +49,7 @@ export const ProductFormComponent = ({
 					<div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
 						<div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
 							<h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-								{isEditPage ? "Create New" : "Edit"} Product
+								{isEditPage ? "Edit" : "Create New"} Product
 							</h3>
 							<button
 								type="button"
@@ -168,7 +164,7 @@ export const ProductFormComponent = ({
 												d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
 												clip-rule="evenodd"></path>
 										</svg> */}
-										{isEditPage ? "Add new" : "Save"} product
+										{isEditPage ? "Save" : "Add new"} product
 									</button>
 								</div>
 							</Form>

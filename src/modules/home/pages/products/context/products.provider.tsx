@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useReducer } from "react"
 
-import { EProductStatus, IGetProductsResponse, IProduct } from "@src/models"
+import { EProductStatus, IGetProductsResponse, INewProduct } from "@src/models"
 
 import {
 	IProductsContextValue,
@@ -46,7 +46,7 @@ export const ProductsProvider = ({ children }: ProductsProviderProps) => {
 		dispatch(action)
 	}
 
-	const add = async (product: IProduct) => {
+	const add = async (product: INewProduct) => {
 		await ProductsService.add(product)
 		const action: TProductsAction = {
 			type: EProductStatus.ADD,
@@ -55,7 +55,7 @@ export const ProductsProvider = ({ children }: ProductsProviderProps) => {
 		dispatch(action)
 	}
 
-	const edit = async (_id: string, product: IProduct) => {
+	const edit = async (_id: string, product: INewProduct) => {
 		await ProductsService.edit(_id, product)
 		const action: TProductsAction = {
 			type: EProductStatus.EDIT,

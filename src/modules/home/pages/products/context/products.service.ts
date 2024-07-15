@@ -42,7 +42,7 @@ export const ProductsService = {
 		headers.Authorization = `Bearer ${token}`
 		const url = `${apiBaseUrl}/products/${_id}`
 		const body = product
-		const resJSON = await Request.post(url, headers, body)
+		const resJSON = await Request.patch(url, headers, body)
 		return resJSON
 	}
 }
