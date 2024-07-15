@@ -10,7 +10,7 @@ export const PrivateRoute = ({ element }: { element: JSX.Element }) => {
 	const { authStatus } = authState
 	if (authStatus === EAuthStatus.AUTHENTICATED) return element
 	const lastPath = `${pathname}${search}`
-	Storage.setLocal(EStorage.LAST_PASS, lastPath)
+	Storage.setLocal(EStorage.LAST_PATH, lastPath)
 	return (
 		<Navigate
 			to="/login"

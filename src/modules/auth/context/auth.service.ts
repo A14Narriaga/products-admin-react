@@ -13,5 +13,16 @@ export const AuthService = {
 		}
 		const resJSON = await Request.post(url, headers, body)
 		return resJSON
+	},
+
+	async getUser(token: string) {
+		const url = `${apiBaseUrl}/auth/refresh-token`
+		const headers = {
+			Authorization: `Bearer ${token}`,
+			Accept: "application/json",
+			"Content-Type": "application/json"
+		}
+		const resJSON = await Request.get(url, headers)
+		return resJSON
 	}
 }

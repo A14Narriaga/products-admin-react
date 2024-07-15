@@ -4,19 +4,19 @@ import { v4 as uuidv4 } from "uuid"
 import { IProduct, ProductProps } from "@src/models"
 import { useAuthContext } from "@src/modules/auth"
 import { ConfirmationComponent, PaginationComponent } from "@src/shared"
+import { ITEMS_PER_PAGE } from "@src/utilities"
 
 import { useProductsContext } from "../../context"
 import { ProductFormComponent } from "../product-form"
 import { ProductItem } from "../product-item"
 
-const ITEMS_PER_PAGE = 10
-
 export const ProductList = () => {
 	const { authState } = useAuthContext()
 	const { user } = authState
 	const isStorer = user?.roles.includes("storer")
-	const { products, productsActions } = useProductsContext()
-	const { remove, edit, add } = productsActions
+	const { productsState, productsActions } = useProductsContext()
+	const { products, total } = productsState
+	const { remove, edit, add, set } = productsActions
 	const [currentPage, setCurrentPage] = useState(1)
 	const [openDeleteConfir, setOpenDeleteConfir] = useState(false)
 	const [openEditModal, setOpenEditModal] = useState(false)
@@ -33,25 +33,28 @@ export const ProductList = () => {
 		setOpenDeleteConfir(open)
 	}
 
-	const setPage = (page: number) => setCurrentPage(page)
+	const setPage = async (page: number) => {
+		await set(page)
+		setCurrentPage(page)
+	}
 
-	const handleDeleteProd = (accept: boolean) => {
+	const handleDeleteProd = async (accept: boolean) => {
 		setOpenDeleteConfir(false)
 		if (!accept || !currenteProduct) return
 		const { _id } = currenteProduct
-		remove(_id)
+		await remove(_id)
 	}
 
-	const handleEditProd = (product: IProduct) => {
+	const handleEditProd = async (product: IProduct) => {
 		setOpenEditModal(false)
 		if (!currenteProduct) return
 		const { _id } = currenteProduct
-		edit(_id, product)
+		await edit(_id, product)
 	}
 
-	const handleAddProd = (product: IProduct) => {
+	const handleAddProd = async (product: IProduct) => {
 		setOpenAddModal(false)
-		add(product)
+		await add(product)
 	}
 
 	return (
@@ -60,6 +63,7 @@ export const ProductList = () => {
 				<ProductFormComponent
 					product={undefined}
 					onClose={() => setOpenAddModal(false)}
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
 					onProduct={(newProduct) => handleAddProd(newProduct)}
 				/>
 			)}
@@ -67,14 +71,16 @@ export const ProductList = () => {
 				<ProductFormComponent
 					product={currenteProduct}
 					onClose={() => setOpenEditModal(false)}
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
 					onProduct={(newProduct) => handleEditProd(newProduct)}
 				/>
 			)}
 			{openDeleteConfir && (
 				<ConfirmationComponent
 					question="Are you sure you want to delete this product?"
-					onAccept={handleDeleteProd}
 					onClose={() => setOpenDeleteConfir(false)}
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
+					onAccept={handleDeleteProd}
 				/>
 			)}
 			{isStorer && (
@@ -124,9 +130,10 @@ export const ProductList = () => {
 				</tbody>
 			</table>
 			<PaginationComponent
-				numOfItems={products.length}
+				numOfItems={total}
 				currentPage={currentPage}
 				numOfItemsPerPage={ITEMS_PER_PAGE}
+				// eslint-disable-next-line @typescript-eslint/no-misused-promises
 				onCurrentPage={setPage}
 			/>
 		</>

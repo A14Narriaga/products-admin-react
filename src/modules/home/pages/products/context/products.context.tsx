@@ -3,13 +3,19 @@ import { createContext } from "react"
 import { IProduct } from "@src/models"
 
 export interface IProductsActions {
-	remove: (_id: string) => void
-	add: (product: IProduct) => void
-	edit: (_id: string, product: IProduct) => void
+	remove: (_id: string) => Promise<void>
+	add: (product: IProduct) => Promise<void>
+	edit: (_id: string, product: IProduct) => Promise<void>
+	set: (currentPage: number) => Promise<void>
+}
+
+export interface IProductsState {
+	total: number
+	products: IProduct[]
 }
 
 export interface IProductsContextValue {
-	products: IProduct[]
+	productsState: IProductsState
 	productsActions: IProductsActions
 }
 

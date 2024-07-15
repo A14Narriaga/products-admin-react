@@ -1,4 +1,4 @@
 export enum EStorage {
-	USER = "user",
-	LAST_PASS = "lastpass"
+	TOKEN = "token",
+	LAST_PATH = "last-path"
 }

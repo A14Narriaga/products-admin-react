@@ -22,7 +22,7 @@ export const LoginPage = () => {
 	})
 
 	const handleSubmit = async (values: typeof initialValues) => {
-		const lastPath = Storage.getLocal(EStorage.LAST_PASS, "/") as string
+		const lastPath = Storage.getLocal(EStorage.LAST_PATH, "/") as string
 		const { email, password } = values
 		try {
 			await authActions.login(email, password)

@@ -1,6 +1,6 @@
-import { ReactNode, useReducer } from "react"
+import { ReactNode, useEffect, useReducer } from "react"
 
-import { EAuthStatus, EStorage, IUser } from "@src/models"
+import { EAuthStatus, EStorage, ILoginResponse } from "@src/models"
 import { Storage } from "@src/utilities"
 
 import { AuthContext, AuthState } from "./auth.context"
@@ -16,25 +16,37 @@ const initialState: AuthState = {
 	user: undefined
 }
 
-const init = (): AuthState => {
-	const user = Storage.getLocal(EStorage.USER) as IUser
-	if (!user) return initialState
-	return {
-		authStatus: EAuthStatus.AUTHENTICATED,
-		user
-	}
-}
-
 export const AuthProvider = ({ children }: IAuthProvider) => {
-	const [authState, dispatch] = useReducer(authReducer, {}, init)
+	const [authState, dispatch] = useReducer(authReducer, initialState)
 
-	const login = async (email: string, password: string) => {
-		const user = (await AuthService.login(email, password)) as IUser
+	useEffect(() => {
+		void getUser()
+	}, [])
+
+	const getUser = async () => {
+		const tokenLocal = Storage.getLocal(EStorage.TOKEN) as string
+		if (!tokenLocal) return
+		const response = (await AuthService.getUser(tokenLocal)) as ILoginResponse
+		const { token, ...user } = response
 		const action: AuthAction = {
 			type: EAuthStatus.AUTHENTICATED,
 			payload: { user }
 		}
-		Storage.setLocal(EStorage.USER, user)
+		Storage.setLocal(EStorage.TOKEN, token)
+		dispatch(action)
+	}
+
+	const login = async (email: string, password: string) => {
+		const response = (await AuthService.login(
+			email,
+			password
+		)) as ILoginResponse
+		const { token, ...user } = response
+		const action: AuthAction = {
+			type: EAuthStatus.AUTHENTICATED,
+			payload: { user }
+		}
+		Storage.setLocal(EStorage.TOKEN, token)
 		dispatch(action)
 	}
 
@@ -43,7 +55,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 			type: EAuthStatus.UNAUTHENTICATED,
 			payload: undefined
 		}
-		Storage.removeLocal(EStorage.USER)
+		Storage.removeLocal(EStorage.TOKEN)
 		dispatch(action)
 	}
 

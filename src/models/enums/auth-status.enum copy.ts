@@ -1,5 +1,6 @@
 export enum EProductStatus {
 	ADD = "[PRODUCT] add",
 	REMOVE = "[PRODUCT] remove",
-	EDIT = "[PRODUCT] edit"
+	EDIT = "[PRODUCT] edit",
+	SET = "[PRODUCT] set"
 }

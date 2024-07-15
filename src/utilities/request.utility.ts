@@ -17,6 +17,22 @@ export const Request = {
 		return resJSON
 	},
 
+	async patch(url: string, headers: Headers, body: unknown): Promise<unknown> {
+		const options: RequestInit = {
+			method: "PATCH",
+			headers,
+			body: JSON.stringify(body)
+		}
+		const response: Response = await fetch(url, options)
+		const resJSON: unknown = await response.json()
+		if (!response.ok || ![200, 201].includes(response.status)) {
+			// eslint-disable-next-line no-console
+			console.log("Request PATCH error ==>", url, options, resJSON)
+			throw new Error(response.statusText)
+		}
+		return resJSON
+	},
+
 	async get(url: string, headers: Headers): Promise<unknown> {
 		const options: RequestInit = { method: "GET", headers }
 		const response: Response = await fetch(url, options)
@@ -24,6 +40,18 @@ export const Request = {
 		if (!response.ok || ![200, 201].includes(response.status)) {
 			// eslint-disable-next-line no-console
 			console.log("Request GET error ==>", url, options, resJSON)
+			throw new Error(response.statusText)
+		}
+		return resJSON
+	},
+
+	async delete(url: string, headers: Headers): Promise<unknown> {
+		const options: RequestInit = { method: "DELETE", headers }
+		const response: Response = await fetch(url, options)
+		const resJSON: unknown = await response.json()
+		if (!response.ok || ![200, 201].includes(response.status)) {
+			// eslint-disable-next-line no-console
+			console.log("Request DELETE error ==>", url, options, resJSON)
 			throw new Error(response.statusText)
 		}
 		return resJSON

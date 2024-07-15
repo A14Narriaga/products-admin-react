@@ -1,28 +1,44 @@
-import { ReactNode, useReducer } from "react"
-import { v4 as uuidv4 } from "uuid"
+import { ReactNode, useEffect, useReducer } from "react"
 
-import { EProductStatus, IProduct } from "@src/models"
+import { EProductStatus, IGetProductsResponse, IProduct } from "@src/models"
 
-import { IProductsContextValue, ProductsContext } from "./products.context"
+import {
+	IProductsContextValue,
+	IProductsState,
+	ProductsContext
+} from "./products.context"
 import { productReducer, TProductsAction } from "./products.reducer"
+import { ProductsService } from "./products.service"
 
 interface ProductsProviderProps {
 	children: ReactNode
 }
 
-const initialState: IProduct[] = [
-	{
-		_id: uuidv4(),
-		name: "Product 1",
-		price: 10.99,
-		stock: 50
-	}
-]
+const initialState: IProductsState = {
+	products: [],
+	total: 0
+}
 
 export const ProductsProvider = ({ children }: ProductsProviderProps) => {
-	const [products, dispatch] = useReducer(productReducer, initialState)
+	const [productsState, dispatch] = useReducer(productReducer, initialState)
 
-	const remove = (_id: string) => {
+	useEffect(() => {
+		void set(1)
+	}, [])
+
+	const set = async (currentPage: number) => {
+		const { products, total } = (await ProductsService.getAll(
+			currentPage
+		)) as IGetProductsResponse
+		const action: TProductsAction = {
+			type: EProductStatus.SET,
+			payload: { products, total }
+		}
+		dispatch(action)
+	}
+
+	const remove = async (_id: string) => {
+		await ProductsService.remove(_id)
 		const action: TProductsAction = {
 			type: EProductStatus.REMOVE,
 			payload: { _id }
@@ -30,7 +46,8 @@ export const ProductsProvider = ({ children }: ProductsProviderProps) => {
 		dispatch(action)
 	}
 
-	const add = (product: IProduct) => {
+	const add = async (product: IProduct) => {
+		await ProductsService.add(product)
 		const action: TProductsAction = {
 			type: EProductStatus.ADD,
 			payload: { product }
@@ -38,7 +55,8 @@ export const ProductsProvider = ({ children }: ProductsProviderProps) => {
 		dispatch(action)
 	}
 
-	const edit = (_id: string, product: IProduct) => {
+	const edit = async (_id: string, product: IProduct) => {
+		await ProductsService.edit(_id, product)
 		const action: TProductsAction = {
 			type: EProductStatus.EDIT,
 			payload: { _id, product }
@@ -47,8 +65,9 @@ export const ProductsProvider = ({ children }: ProductsProviderProps) => {
 	}
 
 	const value: IProductsContextValue = {
-		products,
+		productsState,
 		productsActions: {
+			set,
 			remove,
 			add,
 			edit
