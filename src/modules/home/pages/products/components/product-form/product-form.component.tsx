@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid"
 import * as Yup from "yup"
 
 import { IProduct } from "@src/models"
+import { useAuthContext } from "@src/modules/auth"
 
 interface ProductFormComponentProps {
 	product: undefined | IProduct
@@ -15,6 +16,9 @@ export const ProductFormComponent = ({
 	onClose,
 	onProduct
 }: ProductFormComponentProps) => {
+	const { authState } = useAuthContext()
+	const { user } = authState
+	const isStorer = user?.roles.includes("storer")
 	const isEditPage = product === undefined
 
 	const initialValues = {
@@ -89,9 +93,14 @@ export const ProductFormComponent = ({
 											type="text"
 											name="name"
 											id="name"
-											className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+											className={`${
+												isStorer === false
+													? "bg-gray-100 border-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-600 dark:border-gray-500 dark:text-gray-400"
+													: "bg-gray-50 border border-gray-300 text-gray-900 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+											} text-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 rounded-lg transition duration-200`}
 											placeholder="Type product name"
 											required
+											readOnly={!isStorer}
 										/>
 										<ErrorMessage
 											name="name"
@@ -109,9 +118,14 @@ export const ProductFormComponent = ({
 											type="number"
 											name="price"
 											id="price"
-											className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+											className={`${
+												isStorer === false
+													? "bg-gray-100 border-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-600 dark:border-gray-500 dark:text-gray-400"
+													: "bg-gray-50 border border-gray-300 text-gray-900 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+											} text-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 rounded-lg transition duration-200`}
 											placeholder="$2999"
 											required
+											readOnly={!isStorer}
 										/>
 										<ErrorMessage
 											name="price"

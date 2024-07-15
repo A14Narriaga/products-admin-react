@@ -2,6 +2,7 @@ import { useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 import { IProduct, ProductProps } from "@src/models"
+import { useAuthContext } from "@src/modules/auth"
 import { ConfirmationComponent, PaginationComponent } from "@src/shared"
 
 import { useProductsContext } from "../../context"
@@ -11,6 +12,9 @@ import { ProductItem } from "../product-item"
 const ITEMS_PER_PAGE = 10
 
 export const ProductList = () => {
+	const { authState } = useAuthContext()
+	const { user } = authState
+	const isStorer = user?.roles.includes("storer")
 	const { products, productsActions } = useProductsContext()
 	const { remove, edit, add } = productsActions
 	const [currentPage, setCurrentPage] = useState(1)
@@ -73,14 +77,16 @@ export const ProductList = () => {
 					onClose={() => setOpenDeleteConfir(false)}
 				/>
 			)}
-			<div className="flex justify-end">
-				<button
-					type="button"
-					className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-					onClick={() => setOpenAddModal(true)}>
-					Add product
-				</button>
-			</div>
+			{isStorer && (
+				<div className="flex justify-end">
+					<button
+						type="button"
+						className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+						onClick={() => setOpenAddModal(true)}>
+						Add product
+					</button>
+				</div>
+			)}
 			<table className="w-full text-sm text-left rtl:text-right overflow-hidden shadow-md rounded-lg text-gray-500 dark:text-gray-400">
 				<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 					<tr>
@@ -97,11 +103,13 @@ export const ProductList = () => {
 							className="px-6 py-3">
 							<span className="sr-only">Edit</span>
 						</th>
-						<th
-							scope="col"
-							className="px-6 py-3">
-							<span className="sr-only">Delete</span>
-						</th>
+						{isStorer && (
+							<th
+								scope="col"
+								className="px-6 py-3">
+								<span className="sr-only">Delete</span>
+							</th>
+						)}
 					</tr>
 				</thead>
 				<tbody>

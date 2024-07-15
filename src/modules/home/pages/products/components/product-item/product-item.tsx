@@ -1,4 +1,5 @@
 import { IProduct } from "@src/models"
+import { useAuthContext } from "@src/modules/auth"
 
 interface ProductItemProps {
 	product: IProduct
@@ -11,6 +12,9 @@ export const ProductItem = ({
 	onDelete,
 	onEdit
 }: ProductItemProps) => {
+	const { authState } = useAuthContext()
+	const { user } = authState
+	const isStorer = user?.roles.includes("storer")
 	return (
 		<tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900">
 			<th
@@ -27,13 +31,15 @@ export const ProductItem = ({
 					Edit
 				</button>
 			</td>
-			<td className="px-6 py-4">
-				<button
-					className="font-medium text-red-600 dark:text-red-500 hover:underline"
-					onClick={() => onDelete(true)}>
-					Delete
-				</button>
-			</td>
+			{isStorer && (
+				<td className="px-6 py-4">
+					<button
+						className="font-medium text-red-600 dark:text-red-500 hover:underline"
+						onClick={() => onDelete(true)}>
+						Delete
+					</button>
+				</td>
+			)}
 		</tr>
 	)
 }

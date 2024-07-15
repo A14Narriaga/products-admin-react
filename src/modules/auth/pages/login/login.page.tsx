@@ -12,8 +12,8 @@ export const LoginPage = () => {
 	const { authActions } = useAuthContext()
 
 	const initialValues = {
-		email: "a14n.arriaga@gmail.com",
-		password: "A14Narriaga"
+		email: "employee@gmail.com",
+		password: "Employee12345"
 	}
 
 	const validationSchema = Yup.object({
@@ -21,11 +21,16 @@ export const LoginPage = () => {
 		password: Yup.string().required("Required")
 	})
 
-	const handleSubmit = (values: typeof initialValues) => {
+	const handleSubmit = async (values: typeof initialValues) => {
 		const lastPath = Storage.getLocal(EStorage.LAST_PASS, "/") as string
 		const { email, password } = values
-		authActions.login(email, password)
-		navegate(lastPath, { replace: true })
+		try {
+			await authActions.login(email, password)
+			navegate(lastPath, { replace: true })
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.log("LOGIN ERROR:", error)
+		}
 	}
 
 	return (
@@ -33,38 +38,36 @@ export const LoginPage = () => {
 			initialValues={initialValues}
 			validationSchema={validationSchema}
 			onSubmit={handleSubmit}>
-			<Form className="p-4 md:p-5">
-				<div className="grid gap-4 mb-4 grid-cols-2">
-					<div className="col-span-2">
-						<Field
-							type="email"
-							name="email"
-							id="email"
-							className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-							placeholder="email"
-							required
-						/>
-						<ErrorMessage
-							name="email"
-							component="div"
-							className="text-red-500 text-sm"
-						/>
-					</div>
-					<div className="col-span-2 sm:col-span-1">
-						<Field
-							type="password"
-							name="password"
-							id="password"
-							className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-							placeholder="password"
-							required
-						/>
-						<ErrorMessage
-							name="password"
-							component="div"
-							className="text-red-500 text-sm"
-						/>
-					</div>
+			<Form className="py-4 flex flex-col gap-5">
+				<div>
+					<Field
+						type="email"
+						name="email"
+						id="email"
+						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+						placeholder="email"
+						required
+					/>
+					<ErrorMessage
+						name="email"
+						component="div"
+						className="text-red-500 text-sm"
+					/>
+				</div>
+				<div>
+					<Field
+						type="password"
+						name="password"
+						id="password"
+						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+						placeholder="password"
+						required
+					/>
+					<ErrorMessage
+						name="password"
+						component="div"
+						className="text-red-500 text-sm"
+					/>
 				</div>
 				<button
 					type="submit"
