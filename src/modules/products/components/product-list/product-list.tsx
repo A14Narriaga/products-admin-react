@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 
-import { INewProduct, IProduct, ProductProps } from "@src/models"
 import { useAuthContext } from "@src/modules/auth"
 import { ConfirmationComponent, PaginationComponent } from "@src/shared"
 import { ITEMS_PER_PAGE } from "@src/utilities"
 
-import { useProductsContext } from "../../context"
+import { useProductsContext } from "../../hooks"
+import { INewProduct, IProduct, ProductProps } from "../../models"
 import { ProductFormComponent } from "../product-form"
 import { ProductItem } from "../product-item"
 

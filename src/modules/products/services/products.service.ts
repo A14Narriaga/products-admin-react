@@ -1,5 +1,7 @@
-import { EStorage, IProduct } from "@src/models"
+import { EStorage } from "@src/models"
 import { ITEMS_PER_PAGE, Request, Storage } from "@src/utilities"
+
+import { IProduct } from "../models"
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string
 if (!apiBaseUrl) throw new Error("Could not find VITE_API_BASE_URL")

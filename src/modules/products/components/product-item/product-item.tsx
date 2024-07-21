@@ -1,5 +1,6 @@
-import { IProduct } from "@src/models"
 import { useAuthContext } from "@src/modules/auth"
+
+import { IProduct } from "../../models"
 
 interface ProductItemProps {
 	product: IProduct

@@ -1,6 +1,6 @@
 import { createContext } from "react"
 
-import { IProduct } from "@src/models"
+import { IProduct } from "../models"
 
 export interface IProductsActions {
 	remove: (_id: string) => Promise<void>

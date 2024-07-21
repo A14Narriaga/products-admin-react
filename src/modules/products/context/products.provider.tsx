@@ -1,14 +1,15 @@
 import { ReactNode, useEffect, useReducer } from "react"
 
-import { EProductStatus, IGetProductsResponse, INewProduct } from "@src/models"
+import { EProductStatus } from "@src/models"
 
+import { IGetProductsResponse, INewProduct } from "../models"
+import { productReducer, TProductsAction } from "../reducers"
+import { ProductsService } from "../services"
 import {
 	IProductsContextValue,
 	IProductsState,
 	ProductsContext
 } from "./products.context"
-import { productReducer, TProductsAction } from "./products.reducer"
-import { ProductsService } from "./products.service"
 
 interface ProductsProviderProps {
 	children: ReactNode

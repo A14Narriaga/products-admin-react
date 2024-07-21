@@ -34,7 +34,8 @@
 		"react-router-dom": "^6.24.1",
 		"rxjs": "^7.8.1",
 		"uuid": "^10.0.0",
-		"yup": "^1.4.0"
+		"yup": "^1.4.0",
+		"zustand": "^4.5.4"
 	},
 	"devDependencies": {
 		"@testing-library/react": "^15.0.2",
