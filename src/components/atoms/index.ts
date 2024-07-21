@@ -1,4 +1,7 @@
 export * from "./atm-button"
 export * from "./atm-icon"
 export * from "./atm-input"
+export * from "./atm-logo"
 export * from "./atm-modal"
+export * from "./atm-paginate-data-info"
+export * from "./atm-pagination"

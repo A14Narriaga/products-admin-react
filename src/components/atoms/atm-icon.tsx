@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-import { IconXmark } from "../icons"
+import { IconInfo, IconXmark } from "../icons"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export enum EIconType {
@@ -11,6 +11,9 @@ const getIconComponentSVG = (iconName: string): ReactNode => {
 	switch (iconName) {
 		case "x-mark": {
 			return <IconXmark />
+		}
+		case "info": {
+			return <IconInfo />
 		}
 		default: {
 			return <></>

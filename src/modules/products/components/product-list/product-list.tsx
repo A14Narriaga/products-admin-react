@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 
+import { EMolConfirmationType, MolConfirmation } from "@src/components"
 import { useAuthContext } from "@src/modules/auth"
-import { ConfirmationComponent, PaginationComponent } from "@src/shared"
+import { PaginationComponent } from "@src/shared"
 import { ITEMS_PER_PAGE } from "@src/utilities"
 
 import { useProductsContext } from "../../hooks"
@@ -78,7 +79,8 @@ export const ProductList = () => {
 				/>
 			)}
 			{openDeleteConfir && (
-				<ConfirmationComponent
+				<MolConfirmation
+					type={EMolConfirmationType.INFO}
 					question="Are you sure you want to delete this product?"
 					onClose={() => setOpenDeleteConfir(false)}
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises

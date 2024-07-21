@@ -1,4 +1,4 @@
-export const Logo = () => {
+export const AtmLogo = () => {
 	return (
 		<div className="flex items-center space-x-3 rtl:space-x-reverse">
 			<img

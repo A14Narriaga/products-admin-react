@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom"
 import { EStorage } from "@src/models"
 import { Storage } from "@src/utilities"
 
-import { FormLogin, ILoginForm } from "../components"
-import { useAuthContext } from "../context"
+import { FormLogin, ILoginForm } from "./components"
+import { useAuthContext } from "./context"
 
-export const LoginPage = () => {
+export const Login = () => {
 	const navegate = useNavigate()
 	const { authActions } = useAuthContext()
 

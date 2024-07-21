@@ -1,4 +1,4 @@
-import { useAuthContext } from "@src/modules/auth"
+import { useAuthContext } from "../auth"
 
 export const DashboardPage = () => {
 	const { authState } = useAuthContext()

@@ -1,16 +1,43 @@
-interface IConfirmationComponentProps {
+import { AtmIcon, EIconType } from "../atoms"
+
+// eslint-disable-next-line react-refresh/only-export-components
+export enum EMolConfirmationType {
+	SUCESS = "success",
+	WARNING = "warning",
+	ERROR = "error",
+	INFO = "info"
+}
+
+interface IMolConfirmation {
+	type: EMolConfirmationType
 	question: string
 	onAccept: (accept: boolean) => void
 	onClose: () => void
 }
 
-export const ConfirmationComponent = ({
+const getIconName = (type: EMolConfirmationType) => {
+	switch (type) {
+		case EMolConfirmationType.SUCESS: {
+			return ""
+		}
+		case EMolConfirmationType.WARNING: {
+			return ""
+		}
+		case EMolConfirmationType.ERROR: {
+			return ""
+		}
+		case EMolConfirmationType.INFO: {
+			return "info"
+		}
+	}
+}
+
+export const MolConfirmation = ({
+	type,
 	question,
 	onAccept,
 	onClose
-}: IConfirmationComponentProps) => {
-	const handleClose = () => onClose()
-
+}: IMolConfirmation) => {
 	const handleAccept = (accept: boolean) => {
 		onAccept(accept)
 	}
@@ -22,38 +49,18 @@ export const ConfirmationComponent = ({
 					<button
 						type="button"
 						className="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-						onClick={() => handleClose()}>
-						<svg
-							className="w-3 h-3"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 14 14">
-							<path
-								stroke="currentColor"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-							/>
-						</svg>
+						onClick={onClose}>
+						<AtmIcon
+							iconType={EIconType.SVG}
+							iconName="x-mark"
+						/>
 						<span className="sr-only">Close modal</span>
 					</button>
 					<div className="p-4 md:p-5 text-center">
-						<svg
-							className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 20 20">
-							<path
-								stroke="currentColor"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-							/>
-						</svg>
+						<AtmIcon
+							iconType={EIconType.SVG}
+							iconName={getIconName(type)}
+						/>
 						<h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
 							{question}
 						</h3>

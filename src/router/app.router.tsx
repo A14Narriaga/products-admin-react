@@ -1,12 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom"
 
-import {
-	Auth,
-	DashboardPage,
-	Home,
-	LoginPage,
-	ProductsPage
-} from "@src/modules"
+import { DashboardPage, Login, Products } from "@src/modules"
+import { AuthTemplate, DashboardTemplate } from "@src/templates"
 
 import { PrivateRoute } from "./private.route"
 import { PublicRoute } from "./public.route"
@@ -19,7 +14,7 @@ export const appRouter = createBrowserRouter(
 	[
 		{
 			path: "/",
-			element: <Home />,
+			element: <DashboardTemplate />,
 			children: [
 				{
 					path: "/",
@@ -27,17 +22,17 @@ export const appRouter = createBrowserRouter(
 				},
 				{
 					path: "products",
-					element: <PrivateRoute element={<ProductsPage />} />
+					element: <PrivateRoute element={<Products />} />
 				}
 			]
 		},
 		{
 			path: "login",
-			element: <PublicRoute element={<Auth />} />,
+			element: <PublicRoute element={<AuthTemplate />} />,
 			children: [
 				{
 					path: "/login",
-					element: <LoginPage />
+					element: <Login />
 				}
 			]
 		},
