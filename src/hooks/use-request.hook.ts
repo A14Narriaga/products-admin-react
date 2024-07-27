@@ -1,17 +1,16 @@
 import { useState } from "react"
 
-interface IHeaders {
-	[string: string]: string
-}
+import { ERequestStatus, IGetRequest } from "@src/models"
+import { RequesService } from "@src/services"
 
 interface IRequestState {
 	loading: boolean
 	data: unknown
-	success: boolean | undefined
+	status: ERequestStatus
 }
 
 interface IRequestActions {
-	get: (url: string, headers: IHeaders) => void
+	get: (props: IGetRequest) => void
 }
 
 interface IUseRequestState {
@@ -22,24 +21,26 @@ interface IUseRequestState {
 const initialState: IRequestState = {
 	loading: false,
 	data: undefined,
-	success: undefined
+	status: ERequestStatus.PENDING
 }
 
 export const useRequest = (): IUseRequestState => {
 	const [requestState, setRequestState] = useState<IRequestState>(initialState)
 
-	const get = async (url: string, headers: IHeaders) => {
+	const get = async ({ url, headers }: IGetRequest) => {
 		try {
-			setRequestState({ ...requestState, loading: true })
-			const response = await fetch(url, headers)
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-			const responseJSON = await response.json()
-			// eslint-disable-next-line no-console
-			console.log(responseJSON)
-			// const { data } = responseJSON
-			// setRequestState({ data, success: true, loading: false })
+			setRequestState({ ...initialState, loading: true })
+			const data = await RequesService.get({ url, headers })
+			setRequestState({
+				...initialState,
+				data,
+				status: ERequestStatus.SUCCESS
+			})
 		} catch (error) {
-			setRequestState({ data: undefined, success: false, loading: false })
+			setRequestState({
+				...initialState,
+				status: ERequestStatus.ERROR
+			})
 			// eslint-disable-next-line no-console
 			console.error("useRequest [get]", error)
 		}

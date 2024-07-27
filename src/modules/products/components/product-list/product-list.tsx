@@ -1,15 +1,26 @@
 import { useState } from "react"
-import { v4 as uuidv4 } from "uuid"
 
-import { EMolConfirmationType, MolConfirmation } from "@src/components"
+import {
+	AtmPaginateDataInfo,
+	AtmPagination,
+	AtmTable,
+	EMolConfirmationType,
+	MolConfirmation
+} from "@src/components"
 import { useAuthContext } from "@src/modules/auth"
-import { PaginationComponent } from "@src/shared"
 import { ITEMS_PER_PAGE } from "@src/utilities"
 
 import { useProductsContext } from "../../hooks"
-import { INewProduct, IProduct, ProductProps } from "../../models"
+import { INewProduct, IProduct } from "../../models"
 import { ProductFormComponent } from "../product-form"
-import { ProductItem } from "../product-item"
+
+const columns = [
+	{ headerName: "name", fields: "name", visible: true, roles: [] },
+	{ headerName: "price", fields: "price", visible: true, roles: [] },
+	{ headerName: "stock", fields: "stock", visible: true, roles: [] },
+	{ headerName: "edit", fields: "edit", visible: false, roles: [] },
+	{ headerName: "delete", fields: "delete", visible: false, roles: ["storer"] }
+]
 
 export const ProductList = () => {
 	const { authState } = useAuthContext()
@@ -60,6 +71,26 @@ export const ProductList = () => {
 		await setPage(1)
 	}
 
+	const getRows = () => {
+		return products.map((product) => ({
+			...product,
+			edit: (
+				<button
+					className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+					onClick={() => handleOpenEditModal(true, product)}>
+					Edit
+				</button>
+			),
+			delete: (
+				<button
+					className="font-medium text-red-600 dark:text-red-500 hover:underline"
+					onClick={() => handleOpenDeleteConfir(true, product)}>
+					Delete
+				</button>
+			)
+		}))
+	}
+
 	return (
 		<>
 			{openAddModal && (
@@ -97,49 +128,29 @@ export const ProductList = () => {
 					</button>
 				</div>
 			)}
-			<table className="w-full text-sm text-left rtl:text-right overflow-hidden shadow-md rounded-lg text-gray-500 dark:text-gray-400">
-				<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-					<tr>
-						{ProductProps.map((prop: string) => (
-							<th
-								key={uuidv4()}
-								scope="col"
-								className="px-6 py-3">
-								{prop}
-							</th>
-						))}
-						<th
-							scope="col"
-							className="px-6 py-3">
-							<span className="sr-only">Edit</span>
-						</th>
-						{isStorer && (
-							<th
-								scope="col"
-								className="px-6 py-3">
-								<span className="sr-only">Delete</span>
-							</th>
-						)}
-					</tr>
-				</thead>
-				<tbody>
-					{products.map((product: IProduct) => (
-						<ProductItem
-							key={product._id}
-							product={product}
-							onDelete={(remove) => handleOpenDeleteConfir(remove, product)}
-							onEdit={(edit) => handleOpenEditModal(edit, product)}
-						/>
-					))}
-				</tbody>
-			</table>
-			<PaginationComponent
-				numOfItems={total}
-				currentPage={currentPage}
-				numOfItemsPerPage={ITEMS_PER_PAGE}
-				// eslint-disable-next-line @typescript-eslint/no-misused-promises
-				onCurrentPage={setPage}
+			<AtmTable
+				columns={columns}
+				rows={getRows()}
+				onRow={() => {}}
 			/>
+			<nav className="py-2 flex flex-col gap-2">
+				<section className="flex justify-end">
+					<AtmPaginateDataInfo
+						currentPage={currentPage}
+						numOfItems={total}
+						numOfItemsPerPage={ITEMS_PER_PAGE}
+					/>
+				</section>
+				<section className="flex justify-center">
+					<AtmPagination
+						currentPage={currentPage}
+						numOfItems={total}
+						numOfItemsPerPage={ITEMS_PER_PAGE}
+						// eslint-disable-next-line @typescript-eslint/no-misused-promises
+						onCurrentPage={setPage}
+					/>
+				</section>
+			</nav>
 		</>
 	)
 }
