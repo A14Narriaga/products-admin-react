@@ -1,5 +1,5 @@
 import { EStorage } from "@src/models"
-import { ITEMS_PER_PAGE, Request, Storage } from "@src/utilities"
+import { Request, Storage } from "@src/utilities"
 
 import { IProduct } from "../models"
 
@@ -15,7 +15,7 @@ export const ProductsService = {
 	async getAll(currentPage: number) {
 		const token = Storage.getLocal(EStorage.TOKEN) as string
 		headers.Authorization = `Bearer ${token}`
-		const limit = ITEMS_PER_PAGE
+		const limit = 10
 		const offset = (currentPage - 1) * limit
 		const url = `${apiBaseUrl}/products?limit=${limit}&offset=${offset}`
 		const resJSON = await Request.get(url, headers)

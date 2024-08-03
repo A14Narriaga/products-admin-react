@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { v4 as uuidv4 } from "uuid"
 
 interface IAtmPaginationProps {
 	numOfItems: number
@@ -20,14 +19,13 @@ export const AtmPagination = ({
 	useEffect(() => {
 		const newPages = []
 		const numOfPages = Math.ceil(numOfItems / numOfItemsPerPage)
-		const start = currentPage
+		const start = 1
 		const end = numOfPages
 		for (let index = start; index < end + 1; index++) {
 			newPages.push(index)
 		}
 		setNumOfPages(numOfPages)
 		setPages(newPages)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [numOfItems, numOfItemsPerPage])
 
 	const handleCurrentPage = (page: number) => onCurrentPage(page)
@@ -51,7 +49,7 @@ export const AtmPagination = ({
 			</div>
 			{pages.map((page) => (
 				<div
-					key={uuidv4()}
+					key={page}
 					className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700  dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer ${currentPage === page ? "dark:bg-gray-700 dark:text-white " : "dark:bg-gray-800 dark:text-gray-400"}`}
 					onClick={() => handleCurrentPage(page)}>
 					{page}

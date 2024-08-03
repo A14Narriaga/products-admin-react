@@ -1,2 +1,3 @@
-export * from "./product-form"
-export * from "./product-list"
+export * from "./products-form"
+export * from "./products-list"
+export * from "./products-pagination"

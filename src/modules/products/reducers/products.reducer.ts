@@ -1,7 +1,6 @@
 import { EProductStatus } from "@src/models"
 
-import { IProductsState } from "../context"
-import { INewProduct, IProduct } from "../models"
+import { INewProduct, IProduct, IProductsState } from "../models"
 
 export type TProductsAction =
 	| { type: EProductStatus.ADD; payload: { product: INewProduct } }

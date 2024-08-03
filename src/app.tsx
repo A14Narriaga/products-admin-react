@@ -1,12 +1,17 @@
 import { RouterProvider } from "react-router-dom"
 
 import { AuthProvider } from "./modules"
+import { ConfirmationProvider, ModalProvider } from "./providers"
 import { appRouter } from "./router"
 
 function App() {
 	return (
 		<AuthProvider>
-			<RouterProvider router={appRouter} />
+			<ModalProvider>
+				<ConfirmationProvider>
+					<RouterProvider router={appRouter} />
+				</ConfirmationProvider>
+			</ModalProvider>
 		</AuthProvider>
 	)
 }
