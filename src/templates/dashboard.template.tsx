@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom"
 
-import { Navbar } from "@src/shared"
+import { MolNavbar } from "@src/components"
 
 export const DashboardTemplate = () => {
 	return (
 		<>
-			<Navbar />
+			<MolNavbar />
 			<Outlet />
 		</>
 	)
