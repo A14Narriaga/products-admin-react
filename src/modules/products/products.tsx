@@ -3,7 +3,7 @@ import { useState } from "react"
 import { AtmButton } from "@src/components"
 import { useProducts } from "@src/hooks"
 import { ERequestStatus } from "@src/models"
-import { EMolConfirmationType, useConfirmation, useModal } from "@src/providers"
+import { EConfirmationType, useConfirmation, useModal } from "@src/providers"
 
 import { useAuthContext } from "../auth"
 import { ProductsForm, ProductsList, ProductsPagination } from "./components"
@@ -62,7 +62,7 @@ export const Products = () => {
 
 	const handleConfirmation = (product: IProduct) => {
 		setConfirmation({
-			type: EMolConfirmationType.INFO,
+			type: EConfirmationType.INFO,
 			question: "Are you sure you want to delete this product?",
 			// eslint-disable-next-line @typescript-eslint/no-misused-promises
 			onAccept: (accept) => handleDeleteProd(accept, product)

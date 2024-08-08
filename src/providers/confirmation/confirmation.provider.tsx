@@ -5,30 +5,30 @@ import { AtmIcon, EIconType } from "@src/components"
 import { AtmModalBtnClose } from "../modal/components"
 import { ConfirmationContext } from "./context"
 import {
-	EMolConfirmationType,
+	EConfirmationType,
 	IConfirmationContextValue,
 	IConfirmationProps
 } from "./models"
 
-const getIconName = (type: EMolConfirmationType) => {
+const getIconName = (type: EConfirmationType) => {
 	switch (type) {
-		case EMolConfirmationType.SUCESS: {
+		case EConfirmationType.SUCESS: {
 			return ""
 		}
-		case EMolConfirmationType.WARNING: {
+		case EConfirmationType.WARNING: {
 			return ""
 		}
-		case EMolConfirmationType.ERROR: {
+		case EConfirmationType.ERROR: {
 			return ""
 		}
-		case EMolConfirmationType.INFO: {
+		case EConfirmationType.INFO: {
 			return "info"
 		}
 	}
 }
 
 const initialState: IConfirmationProps = {
-	type: EMolConfirmationType.INFO,
+	type: EConfirmationType.INFO,
 	question: "",
 	onAccept: () => {}
 }

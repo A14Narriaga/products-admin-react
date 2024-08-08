@@ -1,4 +1,4 @@
-export enum EMolConfirmationType {
+export enum EConfirmationType {
 	SUCESS = "success",
 	WARNING = "warning",
 	ERROR = "error",
@@ -6,7 +6,7 @@ export enum EMolConfirmationType {
 }
 
 export interface IConfirmationProps {
-	type: EMolConfirmationType
+	type: EConfirmationType
 	question: string
 	onAccept: (accept: boolean) => void
 }

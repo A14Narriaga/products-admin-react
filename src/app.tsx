@@ -1,16 +1,18 @@
 import { RouterProvider } from "react-router-dom"
 
 import { AuthProvider } from "./modules"
-import { ConfirmationProvider, ModalProvider } from "./providers"
+import { AlertProvider, ConfirmationProvider, ModalProvider } from "./providers"
 import { appRouter } from "./router"
 
 function App() {
 	return (
 		<AuthProvider>
 			<ModalProvider>
-				<ConfirmationProvider>
-					<RouterProvider router={appRouter} />
-				</ConfirmationProvider>
+				<AlertProvider>
+					<ConfirmationProvider>
+						<RouterProvider router={appRouter} />
+					</ConfirmationProvider>
+				</AlertProvider>
 			</ModalProvider>
 		</AuthProvider>
 	)
