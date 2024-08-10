@@ -1,0 +1,17 @@
+// Desktop
+:root {
+	--padding: 1.5rem;
+}
+
+// Tablet
+@media (max-width: 950px) {
+	:root {
+		--padding: 1rem;
+	}
+}
+
+// Mobile
+@media (max-width: 680px) {
+	:root {
+	}
+}

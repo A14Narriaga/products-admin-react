@@ -81,31 +81,29 @@ export const Products = () => {
 	}
 
 	return (
-		<section className="max-w-screen-lg px-4 py-5 mx-auto ">
+		<section className="max-w-screen-lg px-4 py-5 mx-auto">
 			{status === ERequestStatus.ERROR && <>Error al obtener la informacion</>}
-			<>
-				{hasAccess(["storer"]) && (
-					<div className="flex justify-end">
-						<AtmButton
-							type="button"
-							label="Add product"
-							iconName="plus"
-							onClick={() => handleModal("add")}
-						/>
-					</div>
-				)}
-				<ProductsList
-					products={products}
-					onDelete={(product) => handleConfirmation(product)}
-					onEdit={(product) => handleModal("edit", product)}
-				/>
-				<ProductsPagination
-					numOfItems={total}
-					currentPage={currentPage}
-					// eslint-disable-next-line @typescript-eslint/no-misused-promises
-					onCurrentPage={setPage}
-				/>
-			</>
+			{hasAccess(["storer"]) && (
+				<div className="flex justify-end">
+					<AtmButton
+						type="button"
+						label="Add product"
+						iconName="plus"
+						onClick={() => handleModal("add")}
+					/>
+				</div>
+			)}
+			<ProductsList
+				products={products}
+				onDelete={(product) => handleConfirmation(product)}
+				onEdit={(product) => handleModal("edit", product)}
+			/>
+			<ProductsPagination
+				numOfItems={total}
+				currentPage={currentPage}
+				// eslint-disable-next-line @typescript-eslint/no-misused-promises
+				onCurrentPage={setPage}
+			/>
 		</section>
 	)
 }

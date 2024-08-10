@@ -1,0 +1,18 @@
+:root {
+  --color-primary: 31 41 55;
+  --color-primary-hover: 17 24 39;
+  --color-primary-focus: 55 65 81;
+  --color-secondary: rgb(241, 196, 15);
+  --color-background: #ffffff;
+  --color-background-alt: #f8f9fa;
+  --color-text-primary: 255, 255, 255
+  --color-text-secondary: #7f8c8d;
+  --color-border: #e0e0e0;
+  --color-accent: #e74c3c;
+  --color-success: #2ecc71;
+  --color-danger: #e74c3c;
+  --color-warning: #e67e22;
+  --color-info: #34495e;
+}
+
+[data-theme="dark"] {}
