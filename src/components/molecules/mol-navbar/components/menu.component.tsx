@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 
-import { AtmLogo } from "@src/components"
+import { AtmButton, AtmLogo } from "@src/components"
 import { EAuthStatus } from "@src/models"
 import { useAuthContext } from "@src/modules"
 
@@ -20,13 +20,19 @@ export const MenuComponent = () => {
 		<nav className="bg-white border-gray-200 dark:bg-gray-900">
 			<div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-lg p-4">
 				<AtmLogo />
-				<div className="flex items-center space-x-6 rtl:space-x-reverse text-cyan-400">
-					{authStatus === EAuthStatus.AUTHENTICATED ? (
-						<span onClick={handleClickLogout}>logout</span>
-					) : (
-						<span onClick={handleClickLogin}>login</span>
-					)}
-				</div>
+				{authStatus === EAuthStatus.AUTHENTICATED ? (
+					<AtmButton
+						onlyText={true}
+						label="Logout"
+						onClick={handleClickLogout}
+					/>
+				) : (
+					<AtmButton
+						onlyText={true}
+						label="Login"
+						onClick={handleClickLogin}
+					/>
+				)}
 			</div>
 		</nav>
 	)

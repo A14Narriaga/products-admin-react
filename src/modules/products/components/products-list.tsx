@@ -1,4 +1,4 @@
-import { AtmTable, SkeletonTable } from "@src/components"
+import { AtmButton, AtmTable, SkeletonTable } from "@src/components"
 
 import { IProduct } from "../models"
 
@@ -25,18 +25,19 @@ export const ProductsList = ({
 		return products.map((product) => ({
 			...product,
 			edit: (
-				<button
-					className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-					onClick={() => onEdit(product)}>
-					Edit
-				</button>
+				<AtmButton
+					label="Edit"
+					onlyText={true}
+					onClick={() => onEdit(product)}
+				/>
 			),
 			delete: (
-				<button
-					className="font-medium text-red-600 dark:text-red-500 hover:underline"
-					onClick={() => onDelete(product)}>
-					Delete
-				</button>
+				<AtmButton
+					label="Delete"
+					variant="danger"
+					onlyText={true}
+					onClick={() => onDelete(product)}
+				/>
 			)
 		}))
 	}

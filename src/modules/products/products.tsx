@@ -54,10 +54,13 @@ export const Products = () => {
 	}
 
 	const handleDeleteProd = async (accept: boolean, { _id }: IProduct) => {
-		if (!accept) return
-		await remove(_id)
-		await setPage(currentPage)
-		setOpenConfirmation(false)
+		if (accept) {
+			await remove(_id)
+			await setPage(currentPage)
+			setOpenConfirmation(false)
+		} else {
+			setOpenConfirmation(false)
+		}
 	}
 
 	const handleConfirmation = (product: IProduct) => {
@@ -87,6 +90,7 @@ export const Products = () => {
 				<div className="flex justify-end">
 					<AtmButton
 						type="button"
+						variant="secondary"
 						label="Add product"
 						iconName="plus"
 						onClick={() => handleModal("add")}
