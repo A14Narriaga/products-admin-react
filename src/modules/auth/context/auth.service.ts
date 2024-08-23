@@ -1,4 +1,4 @@
-import { Request } from "@src/utilities"
+import { RequesService } from "@src/services"
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string
 if (!apiBaseUrl) throw new Error("Could not find VITE_API_BASE_URL")
@@ -11,7 +11,7 @@ export const AuthService = {
 			Accept: "application/json",
 			"Content-Type": "application/json"
 		}
-		const resJSON = await Request.post(url, headers, body)
+		const resJSON = await RequesService.post({ url, headers, body })
 		return resJSON
 	},
 
@@ -22,7 +22,7 @@ export const AuthService = {
 			Accept: "application/json",
 			"Content-Type": "application/json"
 		}
-		const resJSON = await Request.get(url, headers)
+		const resJSON = await RequesService.get({ url, headers })
 		return resJSON
 	}
 }

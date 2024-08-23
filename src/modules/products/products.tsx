@@ -2,7 +2,6 @@ import { useState } from "react"
 
 import { AtmButton } from "@src/components"
 import { useProducts } from "@src/hooks"
-import { ERequestStatus } from "@src/models"
 import { EConfirmationType, useConfirmation, useModal } from "@src/providers"
 
 import { useAuthContext } from "../auth"
@@ -13,10 +12,9 @@ export const Products = () => {
 	const { setModal, setOpen: setOpenModal } = useModal()
 	const { setConfirmation, setOpen: setOpenConfirmation } = useConfirmation()
 
-	const { requestState, productsState, productsActions } = useProducts()
+	const { productsState, productsActions } = useProducts()
 	const { products, total } = productsState
 	const { remove, edit, add, set } = productsActions
-	const { status } = requestState
 
 	const { authState } = useAuthContext()
 	const { user } = authState
@@ -25,12 +23,12 @@ export const Products = () => {
 	const [currentPage, setCurrentPage] = useState(1)
 
 	const handleEditProd = async ({ _id }: IProduct, newProduct: INewProduct) => {
-		await edit(_id, newProduct)
+		await edit.action(_id, newProduct)
 		setOpenModal(false)
 	}
 
 	const handleAddProd = async (product: INewProduct) => {
-		await add(product)
+		await add.action(product)
 		await setPage(1)
 		setOpenModal(false)
 	}
@@ -55,7 +53,7 @@ export const Products = () => {
 
 	const handleDeleteProd = async (accept: boolean, { _id }: IProduct) => {
 		if (accept) {
-			await remove(_id)
+			await remove.action(_id)
 			await setPage(currentPage)
 			setOpenConfirmation(false)
 		} else {
@@ -74,7 +72,7 @@ export const Products = () => {
 	}
 
 	const setPage = async (page: number) => {
-		await set(page)
+		await set.action(page)
 		setCurrentPage(page)
 	}
 
@@ -85,7 +83,6 @@ export const Products = () => {
 
 	return (
 		<section className="max-w-screen-lg px-4 py-5 mx-auto">
-			{status === ERequestStatus.ERROR && <>Error al obtener la informacion</>}
 			{hasAccess(["storer"]) && (
 				<div className="flex justify-end">
 					<AtmButton

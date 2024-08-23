@@ -1,5 +1,5 @@
 import { EStorage } from "@src/models"
-import { Request, Storage } from "@src/utilities"
+import { Storage } from "@src/utilities"
 
 import { IProduct } from "../models"
 
@@ -12,39 +12,36 @@ const headers: { [key: string]: string } = {
 }
 
 export const ProductsService = {
-	async getAll(currentPage: number) {
+	getAllProps(currentPage: number) {
 		const token = Storage.getLocal(EStorage.TOKEN) as string
 		headers.Authorization = `Bearer ${token}`
 		const limit = 10
 		const offset = (currentPage - 1) * limit
-		const url = `${apiBaseUrl}/products?limit=${limit}&offset=${offset}`
-		const resJSON = await Request.get(url, headers)
-		return resJSON
+		const url = `${apiBaseUrl}/products`
+		const params = { limit, offset }
+		return { url, headers, params }
 	},
 
-	async remove(_id: string) {
+	removeProps(_id: string) {
 		const token = Storage.getLocal(EStorage.TOKEN) as string
 		headers.Authorization = `Bearer ${token}`
 		const url = `${apiBaseUrl}/products/${_id}`
-		const resJSON = await Request.delete(url, headers)
-		return resJSON
+		return { url, headers }
 	},
 
-	async add(product: IProduct) {
+	addProps(product: IProduct) {
 		const token = Storage.getLocal(EStorage.TOKEN) as string
 		headers.Authorization = `Bearer ${token}`
 		const url = `${apiBaseUrl}/products`
 		const body = product
-		const resJSON = await Request.post(url, headers, body)
-		return resJSON
+		return { url, headers, body }
 	},
 
-	async edit(_id: string, product: IProduct) {
+	editProps(_id: string, product: IProduct) {
 		const token = Storage.getLocal(EStorage.TOKEN) as string
 		headers.Authorization = `Bearer ${token}`
 		const url = `${apiBaseUrl}/products/${_id}`
 		const body = product
-		const resJSON = await Request.patch(url, headers, body)
-		return resJSON
+		return { url, headers, body }
 	}
 }
