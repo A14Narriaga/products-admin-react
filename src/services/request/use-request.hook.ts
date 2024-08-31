@@ -11,13 +11,19 @@ import {
 } from "@src/services"
 
 interface IUseRequestState {
-	get: { action: (props: IGetRequest) => Promise<void>; state: IRequestState }
-	post: { action: (props: IPostRequest) => Promise<void>; state: IRequestState }
-	patch: {
+	getRequest: {
+		action: (props: IGetRequest) => Promise<void>
+		state: IRequestState
+	}
+	postRequest: {
+		action: (props: IPostRequest) => Promise<void>
+		state: IRequestState
+	}
+	patchRequest: {
 		action: (props: IPatchRequest) => Promise<void>
 		state: IRequestState
 	}
-	delete: {
+	deleteRequest: {
 		action: (props: IDeleteRequest) => Promise<void>
 		state: IRequestState
 	}
@@ -92,9 +98,9 @@ export const useRequest = (): IUseRequestState => {
 	}
 
 	return {
-		get: { action: get, state: getState },
-		post: { action: post, state: postState },
-		patch: { action: patch, state: patchState },
-		delete: { action: _delete, state: deleteState }
+		getRequest: { action: get, state: getState },
+		postRequest: { action: post, state: postState },
+		patchRequest: { action: patch, state: patchState },
+		deleteRequest: { action: _delete, state: deleteState }
 	}
 }

@@ -1,18 +1,26 @@
-:root {
-  --color-primary: 31 41 55;
-  --color-primary-hover: 17 24 39;
-  --color-primary-focus: 55 65 81;
-  --color-secondary: 63, 63, 63;
-  --color-background: #ffffff;
-  --color-background-alt: #f8f9fa;
-  --color-text-primary: 255, 255, 255
-  --color-text-secondary: #7f8c8d;
-  --color-border: #e0e0e0;
-  --color-accent: #e74c3c;
-  --color-success: 46, 204, 113;
-  --color-danger: 231, 76, 60;
-  --color-warning: 230, 126, 34;
-  --color-info: 52, 73, 94;
+:root,
+[data-theme="dark"] {
+  --color-header: 17 24 39;
+  --color-text-primary: 255 255 255;
 }
 
-[data-theme="dark"] {}
+[data-theme="light"] {
+  --color-header: 255 255 255;
+  --color-text-primary: 0 0 0;
+  // --color-primary: 31 41 55;
+  // --color-primary-hover: 17 24 39;
+  // --color-primary-focus: 55 65 81;
+  // --color-secondary: 63, 63, 63;
+  // --color-background: rgb(255, 255, 255);
+  // --color-background-alt: #f8f9fa;
+  // --color-text-primary: 255, 255, 255
+  // --color-text-secondary: #7f8c8d;
+  // --color-border: #e0e0e0;
+  // --color-accent: rgb(231, 76, 60);
+  // --color-success: 46, 204, 113;
+  // --color-danger: 231, 76, 60;
+  // --color-warning: 230, 126, 34;
+  // --color-info: 52, 73, 94;
+}
+
+

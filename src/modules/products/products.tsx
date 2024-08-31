@@ -1,11 +1,11 @@
 import { useState } from "react"
 
 import { AtmButton } from "@src/components"
-import { useProducts } from "@src/hooks"
 import { EConfirmationType, useConfirmation, useModal } from "@src/providers"
 
 import { useAuthContext } from "../auth"
 import { ProductsForm, ProductsList, ProductsPagination } from "./components"
+import { useProducts } from "./hooks"
 import { INewProduct, IProduct } from "./models"
 
 export const Products = () => {

@@ -1,15 +1,16 @@
 import { useEffect, useReducer } from "react"
 
 import { EProductStatus } from "@src/models"
+import { ERequestStatus, useRequest } from "@src/services"
+
 import {
 	IGetProductsResponse,
 	INewProduct,
 	IProduct,
 	IProductsState
-} from "@src/modules/products/models"
-import { productReducer, TProductsAction } from "@src/modules/products/reducers"
-import { ProductsService } from "@src/modules/products/services"
-import { ERequestStatus, useRequest } from "@src/services"
+} from "../models"
+import { productReducer, TProductsAction } from "../reducers"
+import { ProductsService } from "../services"
 
 export interface IRequestState {
 	loading: boolean
@@ -51,20 +52,20 @@ export const useProducts = () => {
 		initialStateProducts
 	)
 
-	const { get: getReq } = useRequest()
-	const { state: getState, action: get } = getReq
+	const { getRequest } = useRequest()
+	const { state: getState, action: get } = getRequest
 	const { data: prods, ..._getState } = getState
 
-	const { delete: deleteReq } = useRequest()
-	const { state: deleteState, action: _delete } = deleteReq
+	const { deleteRequest } = useRequest()
+	const { state: deleteState, action: _delete } = deleteRequest
 	const { data: resDelete, ..._deleteState } = deleteState
 
-	const { post: postReq } = useRequest()
-	const { state: postState, action: post } = postReq
+	const { postRequest } = useRequest()
+	const { state: postState, action: post } = postRequest
 	const { data: resPost, ..._postState } = postState
 
-	const { patch: patchReq } = useRequest()
-	const { state: patchState, action: patch } = patchReq
+	const { patchRequest } = useRequest()
+	const { state: patchState, action: patch } = patchRequest
 	const { data: resPatch, ..._patchState } = patchState
 
 	useEffect(() => {
