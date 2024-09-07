@@ -1,4 +1,4 @@
-import { AtmButton, AtmTable, SkeletonTable } from "@src/components"
+import { AtmButton, AtmTable } from "@src/components"
 
 import { IProduct } from "../models"
 
@@ -42,7 +42,6 @@ export const ProductsList = ({
 		}))
 	}
 
-	if (!products) return <SkeletonTable />
 	if (products.length === 0) return <p>No hay productos para mostrar</p>
 	return (
 		<AtmTable

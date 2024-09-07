@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { AtmButton } from "@src/components"
+import { AtmButton, SkeletonTable } from "@src/components"
 import { EConfirmationType, useConfirmation, useModal } from "@src/providers"
 
 import { useAuthContext } from "../auth"
@@ -94,11 +94,15 @@ export const Products = () => {
 					/>
 				</div>
 			)}
-			<ProductsList
-				products={products}
-				onDelete={(product) => handleConfirmation(product)}
-				onEdit={(product) => handleModal("edit", product)}
-			/>
+			{set.state.loading ? (
+				<SkeletonTable />
+			) : (
+				<ProductsList
+					products={products}
+					onDelete={(product) => handleConfirmation(product)}
+					onEdit={(product) => handleModal("edit", product)}
+				/>
+			)}
 			<ProductsPagination
 				numOfItems={total}
 				currentPage={currentPage}
